@@ -3,6 +3,11 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from math import *
 
+def display():
+    glClear(GL_COLOR_BUFFER_BIT)
+    BresenhamLine([10,10],[140,100]) #Any choice of coordinates
+    glFlush()
+    return
 def drawLineLow(x1,y1,x2,y2):
     dx = x2 - x1
     dy = y2 - y1
@@ -74,3 +79,18 @@ def BresenhamLine(start, dest):
         drawLineLow(start[0],start[1],dest[0],dest[1])
     else:
         drawLineHigh(start[0],start[1],dest[0],dest[1])
+        
+glutInit() # Initialize a glut instance which will allow us to customize our window
+glutInitDisplayMode(GLUT_SINGLE  | GLUT_RGB);    # set Display mode
+glutInitWindowSize(640, 480)   # Set the width and height of your window
+glutInitWindowPosition(0, 0)   # Set the position at which this windows should appear
+wind = glutCreateWindow("OpenGL Coding Practice") # Give your window a title
+glutIdleFunc(display)     # Draw any graphics or shapes in the display function at all times
+glClearColor(0.0, 0.0, 0.0, 1.0);  # set black background color
+glColor3f(1.0, 1.0, 1.0); #  set the drawing color(white)
+glPointSize(4.0);         # a 'dot' is 4 by 4 pixels
+gluOrtho2D(0, 640, 0, 480);
+glClear(GL_COLOR_BUFFER_BIT)
+glutDisplayFunc(display)# Tell OpenGL to call the display method continuously
+glFlush();
+glutMainLoop()  # Keeps the window created above displaying/running in a loop
